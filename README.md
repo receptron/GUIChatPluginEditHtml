@@ -11,8 +11,11 @@ This plugin allows users to edit an existing HTML page by describing the desired
 ## Installation
 
 ```bash
-yarn add @gui-chat-plugin/edit-html
+yarn add @gui-chat-plugin/edit-html gui-chat-protocol
 ```
+
+> `gui-chat-protocol` is a peer dependency — install it alongside the plugin; the host application provides the runtime and this plugin only declares the compatible range.
+
 
 ## Usage
 
