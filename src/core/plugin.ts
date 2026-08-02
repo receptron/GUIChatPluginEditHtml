@@ -12,14 +12,17 @@ export { TOOL_NAME, TOOL_DEFINITION, SYSTEM_PROMPT } from "./definition";
 /**
  * Execute the editHtml function
  */
+// context is nullable on purpose: hosts that run the plugin without client-side
+// state (MulmoClaude's server bridge) pass an empty or missing context, and
+// reading through it unguarded threw a TypeError instead of returning a result.
 export const executeEditHtml = async (
-  context: ToolContext,
+  context: ToolContext | null | undefined,
   args: EditHtmlArgs,
 ): Promise<ToolResult<HtmlToolData>> => {
   const { prompt } = args;
 
   // Get the currently selected HTML from context
-  const currentData = context.currentResult?.data as HtmlToolData | undefined;
+  const currentData = context?.currentResult?.data as HtmlToolData | undefined;
   const currentHtml = currentData?.html;
 
   if (!currentHtml) {
@@ -30,7 +33,7 @@ export const executeEditHtml = async (
     };
   }
 
-  if (!context.app?.generateHtml) {
+  if (!context?.app?.generateHtml) {
     return {
       message: "generateHtml function not available",
       instructions: "Acknowledge that the HTML editing failed.",
