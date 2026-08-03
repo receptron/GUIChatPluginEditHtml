@@ -4,6 +4,7 @@
 
 import type { ToolPluginCore, ToolContext, ToolResult } from "gui-chat-protocol";
 import type { EditHtmlArgs, HtmlToolData } from "./types";
+import { isGenerateHtmlResponse, isHtmlToolData } from "./hostResponse";
 import { TOOL_DEFINITION, SYSTEM_PROMPT } from "./definition";
 
 // Re-export for convenience
@@ -22,7 +23,10 @@ export const executeEditHtml = async (
   const { prompt } = args;
 
   // Get the currently selected HTML from context
-  const currentData = context?.currentResult?.data as HtmlToolData | undefined;
+  const currentResultData = context?.currentResult?.data;
+  const currentData = isHtmlToolData(currentResultData)
+    ? currentResultData
+    : undefined;
   const currentHtml = currentData?.html;
 
   if (!currentHtml) {
@@ -45,6 +49,14 @@ export const executeEditHtml = async (
       prompt,
       html: currentHtml,
     });
+
+    if (!isGenerateHtmlResponse(data)) {
+      console.error("ERR:1\n unrecognized generateHtml response", data);
+      return {
+        message: "HTML editing failed",
+        instructions: "Acknowledge that the HTML editing failed.",
+      };
+    }
 
     if (data.success && data.html) {
       return {
