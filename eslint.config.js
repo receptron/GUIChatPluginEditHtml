@@ -35,10 +35,7 @@ export default [
       ...tseslint.configs.stylistic.rules,
       ...vuePlugin.configs["flat/recommended"].rules,
       "vue/multi-word-component-names": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { argsIgnorePattern: "^_" },
-      ],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       // 未定義参照は TypeScript 自身が検出する。型のみの参照 (React.FormEvent 等) を誤検出する
       "no-undef": "off",
       "@typescript-eslint/no-explicit-any": "error",

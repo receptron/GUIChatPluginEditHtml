@@ -16,24 +16,18 @@ export { TOOL_NAME, TOOL_DEFINITION, SYSTEM_PROMPT } from "./definition";
 // context is nullable on purpose: hosts that run the plugin without client-side
 // state (MulmoClaude's server bridge) pass an empty or missing context, and
 // reading through it unguarded threw a TypeError instead of returning a result.
-export const executeEditHtml = async (
-  context: ToolContext | null | undefined,
-  args: EditHtmlArgs,
-): Promise<ToolResult<HtmlToolData>> => {
+export const executeEditHtml = async (context: ToolContext | null | undefined, args: EditHtmlArgs): Promise<ToolResult<HtmlToolData>> => {
   const { prompt } = args;
 
   // Get the currently selected HTML from context
   const currentResultData = context?.currentResult?.data;
-  const currentData = isHtmlToolData(currentResultData)
-    ? currentResultData
-    : undefined;
+  const currentData = isHtmlToolData(currentResultData) ? currentResultData : undefined;
   const currentHtml = currentData?.html;
 
   if (!currentHtml) {
     return {
       message: "No HTML page is currently selected to edit",
-      instructions:
-        "Tell the user that they need to select an HTML page first before editing it.",
+      instructions: "Tell the user that they need to select an HTML page first before editing it.",
     };
   }
 
@@ -66,8 +60,7 @@ export const executeEditHtml = async (
         },
         title: prompt.slice(0, 50),
         message: "HTML editing succeeded",
-        instructions:
-          "Acknowledge that the HTML was modified and has been already presented to the user.",
+        instructions: "Acknowledge that the HTML was modified and has been already presented to the user.",
         updating: true, // Update the existing result instead of creating a new one
       };
     } else {
@@ -92,8 +85,7 @@ export const pluginCore: ToolPluginCore<HtmlToolData, unknown, EditHtmlArgs> = {
   toolDefinition: TOOL_DEFINITION,
   execute: executeEditHtml,
   generatingMessage: "Editing HTML...",
-  isEnabled: (startResponse) =>
-    !!startResponse?.hasAnthropicApiKey || !!startResponse?.hasGoogleApiKey,
+  isEnabled: (startResponse) => !!startResponse?.hasAnthropicApiKey || !!startResponse?.hasGoogleApiKey,
   systemPrompt: SYSTEM_PROMPT,
   backends: ["textLLM"],
 };

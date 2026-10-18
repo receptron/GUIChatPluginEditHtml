@@ -1,11 +1,7 @@
 <template>
   <div class="text-center p-4 bg-blue-50 dark:bg-blue-900 rounded">
-    <div class="text-blue-600 dark:text-blue-300 font-medium">
-      {{ libraryIcon }} HTML
-    </div>
-    <div
-      class="text-sm text-gray-800 dark:text-gray-200 mt-1 font-medium truncate"
-    >
+    <div class="text-blue-600 dark:text-blue-300 font-medium">{{ libraryIcon }} HTML</div>
+    <div class="text-sm text-gray-800 dark:text-gray-200 mt-1 font-medium truncate">
       {{ displayTitle }}
     </div>
     <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
