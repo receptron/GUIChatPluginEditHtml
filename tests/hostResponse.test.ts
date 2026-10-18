@@ -12,10 +12,7 @@ import { isGenerateHtmlResponse, isHtmlToolData } from "../src/core/hostResponse
 
 describe("isGenerateHtmlResponse", () => {
   test("accepts a successful response carrying html", () => {
-    assert.equal(
-      isGenerateHtmlResponse({ success: true, html: "<p>hi</p>" }),
-      true,
-    );
+    assert.equal(isGenerateHtmlResponse({ success: true, html: "<p>hi</p>" }), true);
   });
 
   test("accepts a failure response carrying an error string", () => {
@@ -28,11 +25,7 @@ describe("isGenerateHtmlResponse", () => {
 
   test("rejects values that are not a response object", () => {
     [null, undefined, "ok", 7].forEach((value) => {
-      assert.equal(
-        isGenerateHtmlResponse(value),
-        false,
-        `should reject ${JSON.stringify(value)}`,
-      );
+      assert.equal(isGenerateHtmlResponse(value), false, `should reject ${JSON.stringify(value)}`);
     });
   });
 });
