@@ -1,6 +1,7 @@
 # @gui-chat-plugin/edit-html
 
 [![npm version](https://badge.fury.io/js/%40gui-chat-plugin%2Fedit-html.svg)](https://www.npmjs.com/package/@gui-chat-plugin/edit-html)
+[![scoria](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/receptron/GUIChatPluginEditHtml/badges/scoria.json)](https://github.com/receptron/GUIChatPluginEditHtml/actions/workflows/scoria.yml)
 
 An edit HTML plugin for [MulmoChat](https://github.com/receptron/MulmoChat).
 
